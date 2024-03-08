@@ -10,9 +10,9 @@
     Collection of automation processes that power exile.watch
 </p>
 
-## [📖 docs](https://docs.exile.watch/projects/doryani)
+### [📖 docs](https://docs.exile.watch/projects/doryani)
 
-## Contributing
+### Contributing
 | `@exile-watch/doryani`                            | Link                                                                                            |
 |---------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | Want to contribute?                               | [Check the docs](https://docs.exile.watch/projects/doryani/contributing)                        |
