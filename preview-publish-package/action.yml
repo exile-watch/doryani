@@ -31,14 +31,14 @@ runs:
 
     - id: CI-02
       if: steps.CI-00.outcome == 'success' && steps.CI-01.outcome == 'success'
-      uses: exile-watch/doryani/preview-publish-package/02-update-status-comment-on-success.yml
+      uses: exile-watch/doryani/preview-publish-package/02-update-status-comment-on-success.yml@main
       with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-03
       if: steps.CI-00.outcome == 'failure' || steps.CI-01.outcome == 'failure'
-      uses: exile-watch/doryani/preview-publish-package/03-update-status-comment-on-failure.yml
+      uses: exile-watch/doryani/preview-publish-package/03-update-status-comment-on-failure.yml@main
       with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}

@@ -12,7 +12,7 @@
 
 ## Workflows
 
-### [Preview publish package](./github/workflows/preview-publish-package.yml)
+### [Preview publish package](./preview-publish-package/action.yml)
 
 > [!NOTE]
 > This section covers `preview-publish-package*` workflows
