@@ -4,28 +4,13 @@
   </a>
 </p>
 <h1 align="center">
-  <a href="#">exile.watch</a> github actions workflows
+  <a href="#">exile.watch</a> automation
 </h1>
 <p align="center">
-    Collection of automation processes
+    Collection of automation processes that power exile.watch
 </p>
 
-## Workflows
-
-### [Preview publish package](./preview-publish-package/action.yml)
-
-> [!NOTE]
-> This section covers `preview-publish-package*` workflows
-
-Designed to automate the process of building and publishing a preview version of a exile.watch package to a github npm registry, enabling users to test and evaluate changes before the final release. 
-
-|                                    Workflow code                                    | Name                             | Responsibility                                                                        |
-|:-----------------------------------------------------------------------------------:|----------------------------------|---------------------------------------------------------------------------------------|
-|      [`CI-00`](./preview-publish-package/00-create-status-comment/action.yml)       | Create status comment            | Creates status comment after `preview-publish` label is applied to the branch         |
-|        [`CI-01`](./preview-publish-package/01-publish-prerelease/action.yml)        | Publish prerelease               | Creates prerelease in `x.x.x-preview.x` format and publishes to github registry       |
-| [`CI-02`](./preview-publish-package/02-update-status-comment-on-success/action.yml) | Update status comment on success | Once the package is published, this workflow updates the status created in `CI-00`    |
-| [`CI-03`](./preview-publish-package/03-update-status-comment-on-failure/action.yml) | Update status comment on failure | If `CI-00` or `CI-01` action fails, this workflow updates the status created in CI-00 |
-|   [`CI-04`](./preview-publish-package/04-remove-preview-publish-label/action.yml)   | Remove preview publish label     | Removes `preview-publish` label from PR once CI-00 is completed                       |
+## [📖 docs](https://docs.exile.watch/projects/doryani)
 
 ## Contributing
 | `@exile-watch/doryani`                            | Link                                                                                            |
