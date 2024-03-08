@@ -19,13 +19,13 @@
 
 Designed to automate the process of building and publishing a preview version of a exile.watch package to a github npm registry, enabling users to test and evaluate changes before the final release. 
 
-|                                         Workflow code                                         | Name                             | Responsibility                                                                                            |
-|:---------------------------------------------------------------------------------------------:|----------------------------------|-----------------------------------------------------------------------------------------------------------|
-|       [`CI-00`](./github/workflows/preview-publish-package-00-create-status-comment.yml)      | Create status comment            | Creates status comment after `preview-publish` label is applied to the branch                             |
-|        [`CI-01`](./github/workflows/preview-publish-package-01-publish-prerelease.yml)        | Publish prerelease               | Creates prerelease in `x.x.x-preview.x` format and publishes to github registry                           |
-| [`CI-02`](./github/workflows/preview-publish-package-02-update-status-comment-on-success.yml) | Update status comment on success | Once the package is published, this workflow updates the status created in `CI-00`                        |
-|    [`CI-03`](./github/workflows/preview-publish-package-03-status-comment-on-failure.yml)     | Update status comment on failure | If any step from `Publish prerelease` workflow fails, this workflow updates the status created in `CI-00` |
-|   [`CI-04`](./github/workflows/preview-publish-package-04-remove-preview-publish-label.yml)   | Remove preview publish label     | Removes `preview-publish` label from PR once `CI-00` is completed                                         |
+|                                         Workflow code                                          | Name                             | Responsibility                                                                                            |
+|:----------------------------------------------------------------------------------------------:|----------------------------------|-----------------------------------------------------------------------------------------------------------|
+|      [`CI-00`](./.github/workflows/preview-publish-package-00-create-status-comment.yml)       | Create status comment            | Creates status comment after `preview-publish` label is applied to the branch                             |
+|        [`CI-01`](./.github/workflows/preview-publish-package-01-publish-prerelease.yml)        | Publish prerelease               | Creates prerelease in `x.x.x-preview.x` format and publishes to github registry                           |
+| [`CI-02`](./.github/workflows/preview-publish-package-02-update-status-comment-on-success.yml) | Update status comment on success | Once the package is published, this workflow updates the status created in `CI-00`                        |
+| [`CI-03`](./.github/workflows/preview-publish-package-03-update-status-comment-on-failure.yml) | Update status comment on failure | If any step from `Publish prerelease` workflow fails, this workflow updates the status created in `CI-00` |
+|   [`CI-04`](./.github/workflows/preview-publish-package-04-remove-preview-publish-label.yml)   | Remove preview publish label     | Removes `preview-publish` label from PR once `CI-00` is completed                                         |
 
 ## Contributing
 | Area                                              | Link                                                                                            |
