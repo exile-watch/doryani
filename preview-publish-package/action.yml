@@ -16,7 +16,7 @@ runs:
   using: composite
   steps:
     - id: CI-00
-      uses: ./.github/workflows/preview-publish-package-00-create-status-comment.yml
+      uses: exile-watch/doryani/preview-publish-package/00-create-status-comment
       with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
