@@ -1,0 +1,74 @@
+name: Preview publish package - 01 - Publish pre-release
+description: Creates prerelease in x.x.x-preview.x format and publishes to github registry
+
+inputs:
+  GH_TOKEN:
+    description: A GitHub PAT
+    required: true
+  GH_ACTOR:
+    description: A GitHub username
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+outputs:
+  changelog:
+    description: `lerna changed --json` output # read: https://github.com/lerna/lerna/tree/main/libs/commands/changed#readme
+    value: ${{ steps.lerna_prerelease.outputs.changelog }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.GH_TOKEN }}
+        fetch-depth: 0
+        ref: ${{ inputs.prRef }}
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
+        cache: npm
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "${{ inputs.GH_ACTOR }}"
+        git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
+
+    - name: GitHub Package Registry Identity
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      run: |
+        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
+        echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Lerna publish pre-release
+      id: publish-prerelease
+      env:
+        CI: true
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+      run: |
+        npx lerna version prerelease --preid preview --yes --no-push
+        npx lerna publish from-git --dist-tag next --yes
+        echo "changelog=$(npx lerna changed --json | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+    - name: Write changelog to a file
+      id: create-changelog-artifact
+      if: steps.publish-prerelease.outcome == 'success'
+      run: echo "${{ needs.publish-prerelease.outputs.changelog }}" >> changelog.txt
+      shell: bash
+
+    - name: Upload changelog as an artifact
+      if: steps.create-changelog-artifact.outcome == 'success'
+      uses: actions/upload-artifact@v4
+      with:
+        name: changelog-artifact
+        path: changelog.txt
+        retention-days: 1

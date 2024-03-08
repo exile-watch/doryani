@@ -23,7 +23,7 @@ runs:
 
     - id: CI-01
       if: steps.CI-00.outcome == 'success'
-      uses: ./.github/workflows/preview-publish-package-01-publish-prerelease.yml
+      uses: exile-watch/doryani/preview-publish-package/01-publish-prerelease@main
       with:
         GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
