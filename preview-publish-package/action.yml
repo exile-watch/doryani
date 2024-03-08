@@ -2,8 +2,14 @@ name: Preview publish lerna package
 description: Action designed to automate the process of building and publishing a preview version of a Lerna package to a github npm registry, enabling users to test and evaluate changes before the final release
 
 inputs:
+  GH_TOKEN:
+    description: A GitHub PAT
+    required: true
+  GH_ACTOR:
+    description: A GitHub username
+    required: true
   prRef:
-    description: Pull request reference, e.g. `main, ${{ github.event.pull_request.head.ref }}`
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
     required: true
 
 runs:
@@ -11,35 +17,35 @@ runs:
   steps:
     - id: CI-00
       uses: ./.github/workflows/preview-publish-package-00-create-status-comment.yml
-      secrets: inherit
       with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-01
-      needs: [CI-00]
+      if: steps.CI-00.outcome == 'success'
       uses: ./.github/workflows/preview-publish-package-01-publish-prerelease.yml
-      secrets: inherit
       with:
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-02
-      needs: [ CI-00, CI-01 ]
+      if: steps.CI-00.outcome == 'success' && steps.CI-01.outcome == 'success'
       uses: ./.github/workflows/preview-publish-package-02-update-status-comment-on-success.yml
-      secrets: inherit
       with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-03
-      needs: [ CI-00 ]
-      if: failure()
+      if: steps.CI-00.outcome == 'failure'
       uses: ./.github/workflows/preview-publish-package-03-update-status-comment-on-failure.yml
-      secrets: inherit
       with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-04
-      needs: [ CI-00 ]
+      if: steps.CI-00.outcome == 'success'
       uses: ./.github/workflows/preview-publish-package-04-remove-preview-publish-label.yml
-      secrets: inherit
       with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}

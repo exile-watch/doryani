@@ -4,12 +4,12 @@ run-name: Preview publish package - 02 - Update status comment on success
 on:
   workflow_call:
     inputs:
+      GH_TOKEN:
+        required: true
+        type: string
       prRef:
         required: true
         type: string
-    secrets:
-      GH_TOKEN:
-        required: true
 
 jobs:
   update-status-comment-on-succes:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ inputs.GH_TOKEN }}
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
 

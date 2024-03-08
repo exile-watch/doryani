@@ -4,12 +4,12 @@ run-name: Preview publish package - 00 - Create status comment
 on:
   workflow_call:
     inputs:
+      GH_TOKEN:
+        required: true
+        type: string
       prRef:
         required: true
         type: string
-    secrets:
-      GH_TOKEN:
-        required: true
 
 jobs:
   create-status-comment:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ inputs.GH_TOKEN }}
           fetch-depth: 0
           ref: ${{ inputs.prRef }}
 
