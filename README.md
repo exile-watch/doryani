@@ -12,27 +12,26 @@
 
 ## Workflows
 
-### Preview publish package
+### [Preview publish package](./github/workflows/preview-publish-package.yml)
 
 > [!NOTE]
 > This section covers `preview-publish-package*` workflows
 
 Designed to automate the process of building and publishing a preview version of a exile.watch package to a github npm registry, enabling users to test and evaluate changes before the final release. 
 
-| Workflow code | Name                             | Responsibility                                                                                            |
-|---------------|----------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `CI-00`       | Create status comment            | Creates status comment after `preview-publish` label is applied to the branch                             |
-| `CI-01`       | Publish prerelease               | Creates prerelease in `x.x.x-preview.x` format and publishes to github registry                           |
-| `CI-02`       | Update status comment on success | Once the package is published, this workflow updates the status created in `CI-00`                        |
-| `CI-03`       | Update status comment on failure | If any step from `Publish prerelease` workflow fails, this workflow updates the status created in `CI-00` |
-| `CI-04`       | Remove preview publish label     | Removes `preview-publish` label from PR once `CI-00` is completed                                         |
+|                                         Workflow code                                         | Name                             | Responsibility                                                                                            |
+|:---------------------------------------------------------------------------------------------:|----------------------------------|-----------------------------------------------------------------------------------------------------------|
+|       [`CI-00`](./github/workflows/preview-publish-package-00-create-status-comment.yml)      | Create status comment            | Creates status comment after `preview-publish` label is applied to the branch                             |
+|        [`CI-01`](./github/workflows/preview-publish-package-01-publish-prerelease.yml)        | Publish prerelease               | Creates prerelease in `x.x.x-preview.x` format and publishes to github registry                           |
+| [`CI-02`](./github/workflows/preview-publish-package-02-update-status-comment-on-success.yml) | Update status comment on success | Once the package is published, this workflow updates the status created in `CI-00`                        |
+|    [`CI-03`](./github/workflows/preview-publish-package-03-status-comment-on-failure.yml)     | Update status comment on failure | If any step from `Publish prerelease` workflow fails, this workflow updates the status created in `CI-00` |
+|   [`CI-04`](./github/workflows/preview-publish-package-04-remove-preview-publish-label.yml)   | Remove preview publish label     | Removes `preview-publish` label from PR once `CI-00` is completed                                         |
 
-- [Preview publish package]()
-### Contributing
-Want to contribute? [Check the docs](https://docs.exile.watch/projects/splinters/contributing)
-
-Encountered a [bug](https://github.com/exile-watch/hideout/issues) or have a [question](https://github.com/exile-watch/hideout/discussions)?
-
-Have an idea for a new [feature](https://github.com/exile-watch/hideout/discussions/categories/ideas)?
-
-Head over to exile.watch's [hideout](https://github.com/exile-watch/hideout)!
+## Contributing
+| Area                                              | Link                                                                                            |
+|---------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| Want to contribute?                               | [Check the docs](https://docs.exile.watch/projects/splinters/contributing)                      |
+| Encountered a bug?                                | [Check issues or create a new one](https://github.com/exile-watch/hideout/issues)               |
+| Have an idea for a new feature?                   | [Check the discussions or create a new one](https://github.com/exile-watch/hideout/discussions) |
+| Anything else is on your mind?                    | [Head over to exile.watch's hideout](https://github.com/exile-watch/hideout)                    |
+| Curious about exile.watch architecture decisions? | [Read exile.watch engineering blog](https://engineering.exile.watch/)                           | 
