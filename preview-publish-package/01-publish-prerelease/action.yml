@@ -14,7 +14,7 @@ inputs:
 
 outputs:
   changelog:
-    description: "`lerna changed --json` output"
+    description: "`lerna changed --json` output" # https://github.com/lerna/lerna/tree/main/libs/commands/list#--json
     value: ${{ steps.lerna_prerelease.outputs.changelog }}
 
 runs:
@@ -47,9 +47,11 @@ runs:
 
     - name: Install dependencies
       run: npm ci
+      shell: bash
 
     - name: Build
       run: npm run build
+      shell: bash
 
     - name: Lerna publish pre-release
       id: publish-prerelease
@@ -65,7 +67,7 @@ runs:
     - name: Write changelog to a file
       id: create-changelog-artifact
       if: steps.publish-prerelease.outcome == 'success'
-      run: echo "${{ needs.publish-prerelease.outputs.changelog }}" >> changelog.txt
+      run: echo "${{ steps.publish-prerelease.outputs.changelog }}" >> changelog.txt
       shell: bash
 
     - name: Upload changelog as an artifact
