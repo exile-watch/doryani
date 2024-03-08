@@ -44,7 +44,7 @@ runs:
     - name: Write comment_id to a file
       id: create-artifact
       if: steps.status_comment.outcome == 'success'
-      run: echo "${{ needs.create-status-comment.outputs.comment_id }}" >> comment_id.txt
+      run: echo "${{ steps.status_comment.outputs.comment_id }}" >> comment_id.txt
       shell: bash
 
     - name: Upload comment_id as an artifact
