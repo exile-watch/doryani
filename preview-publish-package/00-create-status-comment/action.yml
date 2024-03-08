@@ -12,7 +12,7 @@ inputs:
 outputs:
   comment_id:
     description: Recently created status comment id
-    value: ${{ steps.status_comment.outputs.comment_id
+    value: ${{ steps.status_comment.outputs.comment_id }}
 
 runs:
   using: composite
