@@ -28,10 +28,14 @@ Designed to automate the process of building and publishing a preview version of
 |   [`CI-04`](./.github/workflows/preview-publish-package-04-remove-preview-publish-label.yml)   | Remove preview publish label     | Removes `preview-publish` label from PR once `CI-00` is completed                                         |
 
 ## Contributing
-| Area                                              | Link                                                                                            |
+| `@exile-watch/doryani`                            | Link                                                                                            |
 |---------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| Want to contribute?                               | [Check the docs](https://docs.exile.watch/projects/splinters/contributing)                      |
+| Want to contribute?                               | [Check the docs](https://docs.exile.watch/projects/doryani/contributing)                        |
 | Encountered a bug?                                | [Check issues or create a new one](https://github.com/exile-watch/hideout/issues)               |
 | Have an idea for a new feature?                   | [Check the discussions or create a new one](https://github.com/exile-watch/hideout/discussions) |
-| Anything else is on your mind?                    | [Head over to exile.watch's hideout](https://github.com/exile-watch/hideout)                    |
-| Curious about exile.watch architecture decisions? | [Read exile.watch engineering blog](https://engineering.exile.watch/)                           | 
+
+| General                                           | Link                                                                                |
+|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| exile.watch projects                              | [Read about them here](https://docs.exile.watch/projects/hideout#links-to-projects) | 
+| Anything else is on your mind?                    | [Head over to exile.watch's hideout](https://github.com/exile-watch/hideout)        |
+| Curious about exile.watch architecture decisions? | [Read exile.watch engineering blog](https://engineering.exile.watch/)               | 
