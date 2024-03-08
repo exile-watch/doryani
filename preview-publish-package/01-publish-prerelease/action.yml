@@ -35,6 +35,7 @@ runs:
       run: |
         git config --global user.name "${{ inputs.GH_ACTOR }}"
         git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
+      shell: bash
 
     - name: GitHub Package Registry Identity
       env:
@@ -42,6 +43,7 @@ runs:
       run: |
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
         echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
+      shell: bash
 
     - name: Install dependencies
       run: npm ci
@@ -58,6 +60,7 @@ runs:
         npx lerna version prerelease --preid preview --yes --no-push
         npx lerna publish from-git --dist-tag next --yes
         echo "changelog=$(npx lerna changed --json | tr '\n' ' ')" >> $GITHUB_OUTPUT
+      shell: bash
 
     - name: Write changelog to a file
       id: create-changelog-artifact
