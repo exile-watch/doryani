@@ -39,7 +39,7 @@ runs:
 
     - name: GitHub Package Registry Identity
       env:
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
         echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
