@@ -67,7 +67,9 @@ runs:
     - name: Write changelog to a file
       id: create-changelog-artifact
       if: steps.publish-prerelease.outcome == 'success'
-      run: echo "${{ steps.publish-prerelease.outputs.changelog }}" > changelog.txt
+      run: |
+        echo "upload: ${{ steps.publish-prerelease.outputs.changelog }}"
+        echo "${{ steps.publish-prerelease.outputs.changelog }}" > changelog.txt
       shell: bash
 
     - name: Upload changelog as an artifact
