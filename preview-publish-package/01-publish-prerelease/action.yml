@@ -54,8 +54,9 @@ runs:
         CI: true
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
-        npx lerna version prerelease --preid preview --yes
+        npx lerna version prerelease --yes --no-push
         npx lerna publish from-git --dist-tag next --yes
+        echo "'changelog': changelog=$(npx lerna changed --json | tr '\n' ' ')"
         echo "changelog=$(npx lerna changed --json | tr '\n' ' ')" >> $GITHUB_ENV
       shell: bash
 
