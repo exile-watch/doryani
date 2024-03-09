@@ -27,7 +27,7 @@ runs:
     - name: Read artifacts
       run: |
         echo "comment_id=$(cat ./comment-artifact/comment_id.txt)" >> $GITHUB_ENV
-        echo "changelog=$(cat ./changelog-artifact/changelog.json)" >> $GITHUB_ENV
+        echo "changelog=$(cat ./changelog-artifact/changelog.json | base64)" >> $GITHUB_ENV
       shell: bash
 
     - name: Update status comment
@@ -35,9 +35,10 @@ runs:
       with:
         script: |
           const comment_id = ${{ env.comment_id }}
-          const changelogString = ${{ env.changelog }};
-          console.log(changelogString, JSON.parse(changelogString))
-          const changelog = changelogString.length > 0 ? JSON.parse(changelogString)?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
+          const encodedChangelog = ${{ env.changelog }};
+          const decodedChangelog = Buffer.from(encodedChangelog, 'base64').toString('utf-8')
+          console.log(decodedChangelog, JSON.parse(decodedChangelog))
+          const changelog = decodedChangelog.length > 0 ? JSON.parse(decodedChangelog)?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
 
           if(!changelog){
             github.rest.issues.updateComment({
