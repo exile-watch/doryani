@@ -28,6 +28,7 @@ runs:
       run: |
         echo "comment_id=$(cat ./comment-artifact/comment_id.txt)" >> $GITHUB_ENV
         echo "changelog=$(cat ./changelog-artifact/changelog.txt)" >> $GITHUB_ENV
+        echo "jsonChangelog: changelog=$(toJSON(cat ./changelog-artifact/changelog.txt))"
       shell: bash
 
     - name: Update status comment
@@ -36,6 +37,7 @@ runs:
         script: |
           const comment_id = ${{ env.comment_id }}
           const changelogString = ${{ toJSON(env.changelog) }};
+          console.log(changelogString, JSON.parse(changelogString))
           const changelog = changelogString.length > 0 ? JSON.parse(changelogString)?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
 
           if(!changelog){
