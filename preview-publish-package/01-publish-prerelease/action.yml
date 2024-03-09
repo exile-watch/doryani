@@ -55,7 +55,15 @@ runs:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
         npx lerna publish from-git --canary --preid preview --no-push --yes
-        echo "$(npx lerna changed --json)" >> changelog.txt
+        echo "changelog=$(npx lerna changed --json | tr '\n' ' ')" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Write changelog to a file
+      id: create-changelog-artifact
+      if: steps.publish-prerelease.outcome == 'success'
+      run: |
+        echo "upload: ${{ env.changelog }}"
+        echo "${{ env.changelog }}" >> changelog.txt
       shell: bash
 
     - name: Upload changelog as an artifact
