@@ -35,7 +35,7 @@ runs:
       with:
         script: |
           const comment_id = ${{ env.comment_id }}
-          const changelogString = '${{ env.changelog }}';
+          const changelogString = ${{ env.changelog }};
           const changelog = changelogString.length > 0 ? changelogString?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
 
           if(!changelog){
