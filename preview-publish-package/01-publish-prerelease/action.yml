@@ -63,7 +63,7 @@ runs:
       if: steps.publish-prerelease.outcome == 'success'
       run: |
         echo "upload: ${{ env.changelog }}"
-        echo "${{ env.changelog }}" >> changelog.txt
+        echo "${{ env.changelog }}" >> changelog.json
       shell: bash
 
     - name: Upload changelog as an artifact
@@ -71,5 +71,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: changelog-artifact
-        path: changelog.txt
+        path: changelog.json
         retention-days: 1
