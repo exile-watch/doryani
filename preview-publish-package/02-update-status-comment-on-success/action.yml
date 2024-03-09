@@ -28,7 +28,6 @@ runs:
       run: |
         echo "comment_id=$(cat ./comment-artifact/comment_id.txt)" >> $GITHUB_ENV
         echo "changelog=$(cat ./changelog-artifact/changelog.txt)" >> $GITHUB_ENV
-        echo "jsonChangelog: changelog=$(toJSON(cat ./changelog-artifact/changelog.txt))"
       shell: bash
 
     - name: Update status comment

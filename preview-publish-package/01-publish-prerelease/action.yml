@@ -55,7 +55,7 @@ runs:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
         npx lerna publish from-git --canary --preid preview --no-push --yes
-        echo "changelog=$(npx lerna changed --json | tr '\n' ' ')" >> $GITHUB_ENV
+        echo "changelog=$(npx lerna changed --json)" >> $GITHUB_ENV
       shell: bash
 
     - name: Write changelog to a file
