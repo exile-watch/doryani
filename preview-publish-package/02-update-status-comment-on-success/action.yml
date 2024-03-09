@@ -36,8 +36,7 @@ runs:
         script: |
           const comment_id = ${{ env.comment_id }}
           const changelogString = ${{ env.changelog }};
-          console.log(changelogString, JSON.parse(changelogString))
-          const changelog = changelogString.length > 0 ? JSON.parse(changelogString)?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
+          const changelog = changelogString.length > 0 ? changelogString?.map(c => `${c.name}@${c.version}`).join('\\n') : null;
 
           if(!changelog){
             github.rest.issues.updateComment({
