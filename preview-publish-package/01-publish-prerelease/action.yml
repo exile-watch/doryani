@@ -54,8 +54,8 @@ runs:
         CI: true
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
-        npx lerna publish --canary --preid preview --yes
-        npx lerna changed --json --long | jq -c >> changelog.json
+        npx lerna publish --canary --no-git-reset --preid preview --yes
+        npx lerna changed --json | jq -c >> changelog.json
       shell: bash
 
     - name: Upload changelog as an artifact
