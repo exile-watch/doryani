@@ -54,7 +54,7 @@ runs:
         CI: true
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
       run: |
-        npx lerna publish from-git --canary --preid preview --no-push --yes
+        npx lerna publish from-git --canary --preid preview --yes
         npx lerna changed --json | jq -c >> changelog.json
       shell: bash
 
