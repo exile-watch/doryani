@@ -38,7 +38,7 @@ runs:
         prRef: ${{ inputs.prRef }}
 
     - id: CI-03
-      if: steps.CI-00.outcome == 'failure' || steps.CI-01.outcome == 'failure'
+      if: steps.CI-00.conclusion == 'failure' || steps.CI-01.conclusion == 'failure'
       uses: exile-watch/doryani/preview-publish-package/03-update-status-comment-on-failure@main
       with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
