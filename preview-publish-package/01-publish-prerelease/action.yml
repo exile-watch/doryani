@@ -59,7 +59,7 @@ runs:
       shell: bash
 
     - name: Upload changelog as an artifact
-      if: steps.create-changelog-artifact.outcome == 'success'
+      if: steps.publish-prerelease.outcome == 'success'
       uses: actions/upload-artifact@v4
       with:
         name: changelog-artifact
