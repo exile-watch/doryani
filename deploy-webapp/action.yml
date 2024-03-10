@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build
+      run: npm run build && rm -rf .next/cache
       shell: bash
 
     - name: Build & Deploy Worker
