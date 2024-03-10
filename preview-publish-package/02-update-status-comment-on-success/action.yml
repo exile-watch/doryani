@@ -35,36 +35,61 @@ runs:
       with:
         script: |
           const comment_id = ${{ env.comment_id }}
-          const changelogString = ${{ env.changelog }};
-          const packageInstallCommandFormat = (c) => {
-            const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', lefthook', 'unit-testing', 'biome']
-            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
-            return `\`npm i${isDevDependency}${c.name}@${c.version}\`\n`
-          }
-          const changelog = changelogString.length > 0 && changelogString?.map(packageInstallCommandFormat);
-
-          if(!changelog){
+          const changedPackages = ${{ env.changelog }};
+          
+          if(!changedPackages || changedPackages.length === 0){
             github.rest.issues.updateComment({
               ...context.repo,
               comment_id: comment_id,
-              body: `> [!NOTE]
-          > Pre-Release skipped. 
+              body: `> [!CAUTION]
+          > Pre-Release failed
 
-          No changes were made.
+          Check logs for more details.
               `
             });
 
             return;
+          }          
+          
+          const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', lefthook', 'unit-testing', 'biome']
+          const packageInstallCommandFormat = (c) => {            
+            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
+            return `\`npm i${isDevDependency}${c.name}@${c.version}\``
           }
+          const multiPackageInstallCommandFormat = (c) => {            
+            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
+            return `\`npm i${isDevDependency}${c.name}@${c.version}\``
+          }
+          const singlePkgChangelog = changedPackages.length === 1 && changedPackages?.map(packageInstallCommandFormat);
+          const multiPkgChangelog = changedPackages.length > 1 && changedPackages?.map(multiPackageInstallCommandFormat);
+          const moreThanOnePackage = changelog?.length > 0          
+          
+          const defaultBody = `          
+            You can now install the recently published package by copying following command:
+            ${singlePkgChangelog}        
+          `
+          
+          const multiPkgBody = `
+            You can now:
+          
+            1. Install the recently published packages one by one by copying following command(s):
+            ${singlePkgChangelog}
+          
+            2. Install all packages at once by copying following command:
+            ${multiPkgChangelog}
+          `         
+          
+          const changelog = changedPackages.length === 1 ? defaultBody : multiPkgBody;
 
           github.rest.issues.updateComment({
             ...context.repo,
             comment_id: comment_id,
-            body: `> [!TIP]
-            > Pre-Release created
-
-            The pre-release has been successfully created for the following packages:
+            body: `
+            > [!TIP]
+            > The pre-release has been successfully created
+          
             ${changelog}
-            You can now copy the command to check out the latest version.
+            
+            ###### ⚡Powered by [`@exile-watch/doryani/preview-publish-package`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
             `
           });
