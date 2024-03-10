@@ -51,7 +51,7 @@ runs:
             return;
           }          
           
-          const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', lefthook', 'unit-testing', 'biome']
+          const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', 'lefthook', 'unit-testing', 'biome']
           const packageInstallCommandFormat = (c) => {            
             const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
             return `\`npm i${isDevDependency}${c.name}@${c.version}\``
