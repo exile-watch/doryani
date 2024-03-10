@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build
+      run: nx build
       shell: bash
 
     - name: Build & Deploy Worker
