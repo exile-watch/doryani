@@ -14,6 +14,12 @@ inputs:
   ENV:
     description: "An environment to deploy to: <beta|production>"
     required: true
+  GH_TOKEN:
+    description: "A GitHub PAT"
+    required: true
+  GH_ACTOR:
+    description: "A GitHub actor"
+    required: true
 
 runs:
   using: composite
