@@ -72,8 +72,8 @@ runs:
           
             1. Install the recently published packages one by one by copying following command(s):
             ${singlePkgChangelog}
-          
-          
+           
+            \n\n
           
             2. Install all packages at once by copying following command:
             \`\`\`
