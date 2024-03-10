@@ -62,4 +62,4 @@ runs:
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".next/standalone" --project-name=${{ inputs.PROJECT_NAME }} --env ${{ inputs.ENV }}
+        command: pages deploy ".next" --project-name=${{ inputs.PROJECT_NAME }} --env ${{ inputs.ENV }}
