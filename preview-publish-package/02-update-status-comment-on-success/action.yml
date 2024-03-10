@@ -36,7 +36,12 @@ runs:
         script: |
           const comment_id = ${{ env.comment_id }}
           const changelogString = ${{ env.changelog }};
-          const changelog = changelogString.length > 0 ? changelogString?.map(c => `${c.name}@${c.version}`).join('\n') : null;
+          const packageInstallCommandFormat = (c) => {
+            const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', lefthook', 'unit-testing', 'biome']
+            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
+            return `\`npm i${isDevDependency}${c.name}@${c.version}\`\n`
+          }
+          const changelog = changelogString.length > 0 && changelogString?.map(packageInstallCommandFormat);
 
           if(!changelog){
             github.rest.issues.updateComment({
@@ -59,9 +64,7 @@ runs:
             > Pre-Release created
 
             The pre-release has been successfully created for the following packages:
-            \`\`\`
             ${changelog}
-            \`\`\`
-            You can now check out the latest version.
+            You can now copy the command to check out the latest version.
             `
           });
