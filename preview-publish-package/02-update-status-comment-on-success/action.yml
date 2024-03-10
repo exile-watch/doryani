@@ -52,20 +52,15 @@ runs:
           }          
           
           const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', 'lefthook', 'unit-testing', 'biome']
-          const packageInstallCommandFormat = (c) => {            
-            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
-            return `\`npm i${isDevDependency}${c.name}@${c.version}\``
-          }
-          const multiPackageInstallCommandFormat = (c) => {            
-            const isDevDependency = exileWatchBuildToolsPackages.includes(c.name) ? ' -D ' : ' ';
-            return `\`npm i${isDevDependency}${c.name}@${c.version}\``
-          }
-          const singlePkgChangelog = changedPackages.length === 1 && changedPackages?.map(packageInstallCommandFormat);
-          const multiPkgChangelog = changedPackages.length > 1 && changedPackages?.map(multiPackageInstallCommandFormat);       
+          const isDevDependency = changedPackages.every(c => c.includes(c.name)) ? ' -D ' : ' ';
+          const packageInstallCommandFormat = (c) => `\`\`\`npm i${isDevDependency}${c.name}@${c.version}\`\`\``
+          const multiPackageInstallCommandFormat = (c) => `{c.name}@${c.version}`
+          const singlePkgChangelog = changedPackages?.map(packageInstallCommandFormat).join('\n');
+          const multiPkgChangelog = changedPackages?.map(multiPackageInstallCommandFormat).join(' ');       
           
           const defaultBody = `          
             You can now install the recently published package by copying following command:
-            ${singlePkgChangelog}        
+            ${singlePkgChangelog}
           `
           
           const multiPkgBody = `
@@ -75,7 +70,9 @@ runs:
             ${singlePkgChangelog}
           
             2. Install all packages at once by copying following command:
-            ${multiPkgChangelog}
+            \`\`\`
+            npm i${isDevDependency}${multiPkgChangelog}
+            \`\`\`
           `         
           
           const changelog = changedPackages.length === 1 ? defaultBody : multiPkgBody;
@@ -88,6 +85,8 @@ runs:
             > The pre-release has been successfully created
           
             ${changelog}
+            
+            ---
             
             ###### ⚡Powered by [\`@exile-watch/doryani/preview-publish-package\`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
             `
