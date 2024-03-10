@@ -54,7 +54,7 @@ runs:
           const exileWatchBuildToolsPackages = ['rollup-config', 'typescript-config', 'postcss-config', 'conventional-changelog-config', 'lefthook-config-config', 'unit-testing-config', 'biome-config']
           const isDevDependency = changedPackages.some(c => {
               const packageName = c.name.split('/')[1];
-              return exileWatchBuildToolsPackages.includes(`${packageName}-config`);
+              return exileWatchBuildToolsPackages.includes(packageName);
           }) ? ' -D ' : ' ';
                 
           const packageInstallCommandFormat = (c) => `\`\`\`\nnpm i${isDevDependency}${c.name}@${c.version}\n\`\`\``
