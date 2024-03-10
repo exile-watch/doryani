@@ -51,7 +51,7 @@ runs:
             return;
           }          
           
-          const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', 'lefthook', 'unit-testing', 'biome']
+          const exileWatchBuildToolsPackages = ['rollup-config', 'typescript-config', 'postcss-config', 'conventional-changelog-config', 'lefthook-config-config', 'unit-testing-config', 'biome-config']
           const isDevDependency = changedPackages.some(c => {
               const packageName = c.name.split('/')[1];
               return exileWatchBuildToolsPackages.includes(`${packageName}-config`);
@@ -72,6 +72,8 @@ runs:
           
             1. Install the recently published packages one by one by copying following command(s):
             ${singlePkgChangelog}
+          
+          
           
             2. Install all packages at once by copying following command:
             \`\`\`
