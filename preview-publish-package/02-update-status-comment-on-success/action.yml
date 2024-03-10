@@ -52,7 +52,11 @@ runs:
           }          
           
           const exileWatchBuildToolsPackages = ['rollup', 'typescript', 'postcss', 'conventional-changelog', 'lefthook', 'unit-testing', 'biome']
-          const isDevDependency = changedPackages.every(c => exileWatchBuildToolsPackages.includes(c.name)) ? ' -D ' : ' ';
+          const isDevDependency = changedPackages.some(c => {
+              const packageName = c.name.split('/')[1];
+              return exileWatchBuildToolsPackages.includes(`${packageName}-config`);
+          }) ? ' -D ' : ' ';
+                
           const packageInstallCommandFormat = (c) => `\`\`\`npm i${isDevDependency}${c.name}@${c.version}\`\`\``
           const multiPackageInstallCommandFormat = (c) => `{c.name}@${c.version}`
           const singlePkgChangelog = changedPackages?.map(packageInstallCommandFormat).join('\n');
