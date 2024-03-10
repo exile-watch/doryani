@@ -41,5 +41,11 @@ runs:
             body: `
           > [!CAUTION]
           > Pre-Release failed
+          
+          Check logs for more details.
+          
+            ---
+          
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-publish-package\`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
             `
           });

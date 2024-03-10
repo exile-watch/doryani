@@ -36,6 +36,10 @@ runs:
             > Pre-Release process initiated
           
             The pre-release is currently being created. No action is required on your part; this comment will automatically update once everything is complete.
+            
+            ---
+
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-publish-package\`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
             `
           }).then(response => {
             core.setOutput("comment_id", response.data.id)
