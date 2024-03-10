@@ -70,12 +70,11 @@ runs:
           const multiPkgBody = `
             You can now:
           
-            1. Install the recently published packages one by one by copying following command(s):
+            Either install the recently published packages one by one by copying following command(s):
             ${singlePkgChangelog}
-           
-            \n\n
           
-            2. Install all packages at once by copying following command:
+          
+            Or install all packages at once by copying following command:
             \`\`\`
             npm i${isDevDependency}${multiPkgChangelog}
             \`\`\`
