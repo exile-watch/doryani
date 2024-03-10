@@ -53,6 +53,10 @@ runs:
       run: npm run test
       shell: bash
 
+    - name: Build
+      run: npm run build
+      shell: bash
+
     - name: Build & Deploy Worker
       uses: cloudflare/wrangler-action@v3
       with:
