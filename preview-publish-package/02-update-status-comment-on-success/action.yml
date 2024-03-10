@@ -61,8 +61,7 @@ runs:
             return `\`npm i${isDevDependency}${c.name}@${c.version}\``
           }
           const singlePkgChangelog = changedPackages.length === 1 && changedPackages?.map(packageInstallCommandFormat);
-          const multiPkgChangelog = changedPackages.length > 1 && changedPackages?.map(multiPackageInstallCommandFormat);
-          const moreThanOnePackage = changelog?.length > 0          
+          const multiPkgChangelog = changedPackages.length > 1 && changedPackages?.map(multiPackageInstallCommandFormat);       
           
           const defaultBody = `          
             You can now install the recently published package by copying following command:
