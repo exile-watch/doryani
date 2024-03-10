@@ -90,6 +90,6 @@ runs:
           
             ${changelog}
             
-            ###### ⚡Powered by [`@exile-watch/doryani/preview-publish-package`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-publish-package\`](https://docs.exile.watch/projects/doryani/actions/preview-publish-package)
             `
           });
