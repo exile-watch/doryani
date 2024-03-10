@@ -73,7 +73,7 @@ runs:
             Either install the recently published packages one by one by copying following command(s):
             ${singlePkgChangelog}
           
-            \n\n
+            <br/><br/>
           
             Or install all packages at once by copying following command:
             \`\`\`
