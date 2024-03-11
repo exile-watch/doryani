@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build && mkdir .vercel/output/static && mv .next/static .vercel/output/static
+      run: npm run build && mkdir -p .vercel/output/static && mv .next/static .vercel/output/static
       shell: bash
 
     - name: Build & Deploy Worker
