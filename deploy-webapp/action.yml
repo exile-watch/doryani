@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build && mkdir -p .vercel/output/static && mv .next/static .vercel/output/static
+      run: npx @cloudflare/next-on-pages
       shell: bash
 
     - name: Build & Deploy Worker
