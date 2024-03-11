@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build && mv .next/static .vercel/outputs/static
+      run: npm run build && mkdir .vercel/output/static && mv .next/static .vercel/output/static
       shell: bash
 
     - name: Build & Deploy Worker
@@ -62,6 +62,6 @@ runs:
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        directory: ".vercel/outputs/static"
+        directory: ".vercel/output/static"
         gitHubToken: ${{ inputs.GH_TOKEN }}
         wranglerVersion: '3'
