@@ -63,5 +63,6 @@ runs:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         directory: ".vercel/output/static"
+        projectName: ${{ inputs.PROJECT_NAME }}
         gitHubToken: ${{ inputs.GH_TOKEN }}
         wranglerVersion: '3'
