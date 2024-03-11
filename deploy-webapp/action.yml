@@ -58,15 +58,15 @@ runs:
       shell: bash
 
     - name: Deploy
-      run: npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat
+      run: npx wrangler pages .vercel/output/static --compatibility-flag=nodejs_compat
       shell: bash
 
-#    - name: Build & Deploy Worker
-#      uses: cloudflare/wrangler-action@v3
-#      with:
-#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
-#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-#        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }}
+    - name: Build & Deploy Worker
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }}
 
 #    - name: Build & Deploy Worker
 #      uses: cloudflare/pages-action@v1
