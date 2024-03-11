@@ -54,15 +54,26 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build && mkdir -p .vercel/output/static && mv .next/static .vercel/output/static
+      run: npm run build
       shell: bash
 
-    - name: Build & Deploy Worker
-      uses: cloudflare/pages-action@v1
-      with:
-        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        directory: ".vercel/output/static"
-        projectName: ${{ inputs.PROJECT_NAME }}
-        gitHubToken: ${{ inputs.GH_TOKEN }}
-        wranglerVersion: '3'
+    - name: Deploy
+      run: npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat
+      shell: bash
+
+#    - name: Build & Deploy Worker
+#      uses: cloudflare/wrangler-action@v3
+#      with:
+#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+#        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }}
+
+#    - name: Build & Deploy Worker
+#      uses: cloudflare/pages-action@v1
+#      with:
+#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+#        directory: ".vercel/output/static"
+#        projectName: ${{ inputs.PROJECT_NAME }}
+#        gitHubToken: ${{ inputs.GH_TOKEN }}
+#        wranglerVersion: '3'
