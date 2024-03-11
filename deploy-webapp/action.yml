@@ -54,12 +54,14 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build && rm -rf .next/cache
+      run: npm run build && mv .next/static .vercel/outputs/static
       shell: bash
 
     - name: Build & Deploy Worker
-      uses: cloudflare/wrangler-action@v3
+      uses: cloudflare/pages-action@v1
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".next" --project-name=${{ inputs.PROJECT_NAME }} --env ${{ inputs.ENV }}
+        directory: ".vercel/outputs/static"
+        gitHubToken: ${{ inputs.GH_TOKEN }}
+        wranglerVersion: '3'
