@@ -54,11 +54,7 @@ runs:
       shell: bash
 
     - name: Build
-      run: npm run build
-      shell: bash
-
-    - name: Deploy
-      run: npx wrangler pages .vercel/output/static --compatibility-flag=nodejs_compat
+      run: npm run build && mkdir -p .vercel/output/static && mv .next/static .vercel/output/static
       shell: bash
 
     - name: Build & Deploy Worker
