@@ -11,9 +11,6 @@ inputs:
   PROJECT_NAME:
     description: "Cloudflare Pages project name"
     required: true
-  ENV:
-    description: "An environment to deploy to: <beta|production>"
-    required: true
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
@@ -63,13 +60,3 @@ runs:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }}
-
-#    - name: Build & Deploy Worker
-#      uses: cloudflare/pages-action@v1
-#      with:
-#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
-#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-#        directory: ".vercel/output/static"
-#        projectName: ${{ inputs.PROJECT_NAME }}
-#        gitHubToken: ${{ inputs.GH_TOKEN }}
-#        wranglerVersion: '3'
