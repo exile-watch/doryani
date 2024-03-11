@@ -11,6 +11,10 @@ inputs:
   PROJECT_NAME:
     description: "Cloudflare Pages project name"
     required: true
+  ENV:
+    description: "Environment to deploy"
+    required: true
+    default: production
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
@@ -59,4 +63,4 @@ runs:
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }}
+        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }}
