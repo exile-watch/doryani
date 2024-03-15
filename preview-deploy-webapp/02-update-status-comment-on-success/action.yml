@@ -1,0 +1,53 @@
+name: Preview deploy webapp - 02 - Update status comment on success
+description: Once the webapp is deployed, this workflow updates the status created in 00-create-status-comment
+
+inputs:
+  GH_TOKEN:
+    description: A GitHub PAT
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.GH_TOKEN }}
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        path: ./
+
+    - name: Read artifacts
+      run: |
+        echo "comment_id=$(cat ./comment-artifact/comment_id.txt)" >> $GITHUB_ENV
+        echo "preview_deploy_url=$(cat ./preview-deploy-url-artifact/preview-deploy-url.txt)" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Update status comment
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const comment_id = ${{ env.comment_id }}
+          const preview_deploy_url = ${{ env.preview_deploy_url }};     
+
+          github.rest.issues.updateComment({
+            ...context.repo,
+            comment_id: comment_id,
+            body: `
+            > [!TIP]
+            > The preview deploy webapp has been successfully created
+          
+            You can check your preview deployed webapp here: ${preview_deploy_url}
+            
+            ---
+            
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-deploy-webapp\`](https://docs.exile.watch/projects/doryani/actions/preview-deploy-webapp)
+            `
+          });

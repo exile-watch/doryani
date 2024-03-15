@@ -1,0 +1,66 @@
+name: Preview deploy webapp
+description: Action designed to automate the process of building and deploying a preview version of a webapp to Cloudflare Pages, enabling users to test and evaluate changes before the final release
+
+inputs:
+  CLOUDFLARE_API_TOKEN:
+    description: A Cloudflare API token
+    required: true
+  CLOUDFLARE_ACCOUNT_ID:
+    description: A Cloudflare account ID
+    required: true
+  PROJECT_NAME:
+    description: "Cloudflare Pages project name"
+    required: true
+  ENV:
+    description: "Environment to deploy"
+    required: true
+    default: production
+  GH_TOKEN:
+    description: "A GitHub PAT"
+    required: true
+  GH_ACTOR:
+    description: "A GitHub actor"
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: CI-00
+      uses: exile-watch/doryani/preview-deploy-webapp/00-create-status-comment@main
+      with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        prRef: ${{ inputs.prRef }}
+
+    - id: CI-01
+      if: steps.CI-00.outcome == 'success'
+      continue-on-error: true
+      uses: exile-watch/doryani/preview-deploy-webapp/01-preview-deploy-webapp@main
+      with:
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        prRef: ${{ inputs.prRef }}
+
+    - id: CI-02
+      if: steps.CI-00.outcome == 'success' && steps.CI-01.outcome == 'success'
+      continue-on-error: true
+      uses: exile-watch/doryani/preview-deploy-webapp/02-update-status-comment-on-success@main
+      with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        prRef: ${{ inputs.prRef }}
+
+    - id: CI-03
+      if: steps.CI-00.outcome == 'failure' || steps.CI-01.outcome == 'failure' || steps.CI-02.outcome == 'failure'
+      uses: exile-watch/doryani/preview-deploy-webapp/03-update-status-comment-on-failure@main
+      with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        prRef: ${{ inputs.prRef }}
+
+    - id: CI-04
+      if: steps.CI-00.outcome == 'success'
+      uses: exile-watch/doryani/preview-deploy-webapp/04-remove-preview-deploy-label@main
+      with:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        prRef: ${{ inputs.prRef }}

@@ -1,0 +1,51 @@
+name: Preview deploy webapp - 03 - Update status comment on failure
+description: If 00-create-status-comment or 01-deploy-webapp action fails, this workflow updates the status created in CI-00
+
+inputs:
+  GH_TOKEN:
+    description: A GitHub PAT
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.GH_TOKEN }}
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        path: ./
+
+    - name: Read artifacts
+      run: |
+        echo "comment_id=$(cat ./comment-artifact/comment_id.txt)" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Update status comment on failure
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const comment_id = ${{ env.comment_id }}
+
+          github.rest.issues.updateComment({
+            ...context.repo,
+            comment_id: comment_id,
+            body: `
+          > [!CAUTION]
+          > Pre-Release failed
+          
+          Check logs for more details.
+          
+            ---
+          
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-deploy-webapp\`](https://docs.exile.watch/projects/doryani/actions/preview-deploy-webapp)
+            `
+          });

@@ -1,0 +1,60 @@
+name: Preview deploy webapp - 00 - Create status comment
+description: Creates status comment after preview-deploy label is applied to the branch
+
+inputs:
+  GH_TOKEN:
+    description: A GitHub PAT
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+outputs:
+  comment_id:
+    description: Recently created status comment id
+    value: ${{ steps.status_comment.outputs.comment_id }}
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.GH_TOKEN }}
+        fetch-depth: 0
+        ref: ${{ inputs.prRef }}
+
+    - name: Create status comment
+      id: status_comment
+      uses: actions/github-script@v7
+      with:
+        script: >
+          github.rest.issues.createComment({
+            ...context.repo,
+            issue_number: context.issue.number,
+            body: `> [!WARNING]
+            > Preview deploy webapp process initiated
+          
+            The preview deploy webapp is currently being created. No action is required on your part; this comment will automatically update once everything is complete.
+            
+            ---
+
+            ###### ⚡Powered by [\`@exile-watch/doryani/preview-deploy-webapp\`](https://docs.exile.watch/projects/doryani/actions/preview-deploy-webapp)
+            `
+          }).then(response => {
+            core.setOutput("comment_id", response.data.id)
+          });
+
+    - name: Write comment_id to a file
+      id: create-artifact
+      if: steps.status_comment.outcome == 'success'
+      run: echo "${{ steps.status_comment.outputs.comment_id }}" >> comment_id.txt
+      shell: bash
+
+    - name: Upload comment_id as an artifact
+      if: steps.create-artifact.outcome == 'success'
+      uses: actions/upload-artifact@v4
+      with:
+        name: comment-artifact
+        path: comment_id.txt
+        retention-days: 1

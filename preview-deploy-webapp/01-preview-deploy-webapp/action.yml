@@ -1,0 +1,57 @@
+name: Preview deploy webapp - 01 - Preview deploy webapp
+description: Deploys a preview version of a webapp to Cloudflare Pages
+
+inputs:
+  CLOUDFLARE_API_TOKEN:
+    description: A Cloudflare API token
+    required: true
+  CLOUDFLARE_ACCOUNT_ID:
+    description: A Cloudflare account ID
+    required: true
+  PROJECT_NAME:
+    description: "Cloudflare Pages project name"
+    required: true
+  ENV:
+    description: "Environment to deploy"
+    required: true
+    default: production
+  DRY_RUN:
+    description: "Compile a project without actually deploying to live servers"
+    required: false
+    default: "false"
+  GH_TOKEN:
+    description: "A GitHub PAT"
+    required: true
+  GH_ACTOR:
+    description: "A GitHub actor"
+    required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: deploy
+      name: Deploy Crucible to Cloudflare Pages
+      uses: exile-watch/doryani/deploy-webapp@main
+      with:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        PROJECT_NAME: "crucible"
+        ENV: "preview"
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_ACTOR: ${{ github.actor }}
+        DRY_RUN: ${{ inputs.DRY_RUN }}
+
+    - name: Save Preview URL to File
+      run: |
+        echo "${{ steps.deploy.outputs.deploy_url }}" >> preview-deploy-url.txt
+      shell: bash
+
+    - name: Upload preview deploy URL as an artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: preview-deploy-url-artifact
+        path: preview-deploy-url.txt
+        retention-days: 1
