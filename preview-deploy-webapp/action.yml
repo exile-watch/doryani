@@ -15,6 +15,10 @@ inputs:
     description: "Environment to deploy"
     required: false
     default: preview
+  DRY_RUN:
+    description: "Compile a project without actually deploying to live servers"
+    required: false
+    default: "false"
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
@@ -44,6 +48,7 @@ runs:
         PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
         GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        DRY_RUN: ${{ inputs.DRY_RUN }}
         prRef: ${{ inputs.prRef }}
 
     - id: CI-02
@@ -67,3 +72,9 @@ runs:
       with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         prRef: ${{ inputs.prRef }}
+
+    - id: CI-05
+      name: Fail the Job on failure (due to "continue-on-error" flag in previous steps)
+      if: steps.CI-00.outcome == 'failure' || steps.CI-01.outcome == 'failure' || steps.CI-02.outcome == 'failure'
+      run: exit 1
+      shell: bash
