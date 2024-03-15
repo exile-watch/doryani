@@ -46,7 +46,7 @@ runs:
 
     - name: Save Preview URL to File
       run: |
-        echo "${{ steps.deploy.outputs.deploy_url }}" >> preview-deploy-url.txt
+        echo "${{ steps.deploy.outputs.deploy-url }}" >> preview-deploy-url.txt
       shell: bash
 
     - name: Upload preview deploy URL as an artifact
