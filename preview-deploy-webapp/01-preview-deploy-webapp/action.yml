@@ -39,6 +39,7 @@ runs:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         GH_ACTOR: ${{ inputs.actor }}
         DRY_RUN: ${{ inputs.DRY_RUN }}
+        prRef: ${{ inputs.prRef }}
 
     - name: Save Preview URL to File
       run: |

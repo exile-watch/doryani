@@ -25,6 +25,10 @@ inputs:
   GH_ACTOR:
     description: "A GitHub actor"
     required: true
+  prRef:
+    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
+    required: false
+    default: main
 
 outputs:
   deploy-url:
@@ -73,4 +77,4 @@ runs:
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }}
+        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --branch=${{ inputs.prRef }}
