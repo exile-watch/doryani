@@ -36,12 +36,12 @@ runs:
       name: Deploy Crucible to Cloudflare Pages
       uses: exile-watch/doryani/deploy-webapp@main
       with:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         PROJECT_NAME: "crucible"
         ENV: "preview"
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        GH_ACTOR: ${{ github.actor }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        GH_ACTOR: ${{ inputs.actor }}
         DRY_RUN: ${{ inputs.DRY_RUN }}
 
     - name: Save Preview URL to File
