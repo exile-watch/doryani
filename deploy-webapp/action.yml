@@ -15,6 +15,10 @@ inputs:
     description: "Environment to deploy"
     required: true
     default: production
+  DRY_RUN:
+    description: "Compile a project without actually deploying to live servers"
+    required: false
+    default: "false"
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
@@ -63,4 +67,4 @@ runs:
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }}
+        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --dry-run=${{ inputs.DRY_RUN }}
