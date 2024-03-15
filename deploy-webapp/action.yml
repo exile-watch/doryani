@@ -26,6 +26,11 @@ inputs:
     description: "A GitHub actor"
     required: true
 
+outputs:
+  deploy-url:
+    description: "Deploy URL"
+    value: ${{ steps.deploy.outputs.deployment-url }}
+
 runs:
   using: composite
   steps:
@@ -63,8 +68,15 @@ runs:
       shell: bash
 
     - name: Build & Deploy Worker
+      id: deploy
       uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }}
+
+    - name: print wrangler command output
+      shell: bash
+      env:
+        CMD_OUTPUT: ${{ steps.deploy.outputs.command-output }}
+      run: echo $CMD_OUTPUT
