@@ -35,7 +35,7 @@ runs:
       with:
         script: |
           const comment_id = ${{ env.comment_id }}
-          const preview_deploy_url = ${{ env.preview_deploy_url }};     
+          const preview_deploy_url = ${{ env.preview_deploy_url }}
 
           github.rest.issues.updateComment({
             ...context.repo,

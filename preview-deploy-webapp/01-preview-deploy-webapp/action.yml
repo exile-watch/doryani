@@ -11,10 +11,6 @@ inputs:
   PROJECT_NAME:
     description: "Cloudflare Pages project name"
     required: true
-  ENV:
-    description: "Environment to deploy"
-    required: true
-    default: production
   DRY_RUN:
     description: "Compile a project without actually deploying to live servers"
     required: false
@@ -39,7 +35,7 @@ runs:
         CLOUDFLARE_API_TOKEN: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         PROJECT_NAME: "crucible"
-        ENV: "preview"
+        ENV: "staging"
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         GH_ACTOR: ${{ inputs.actor }}
         DRY_RUN: ${{ inputs.DRY_RUN }}

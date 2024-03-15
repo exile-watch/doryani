@@ -11,10 +11,6 @@ inputs:
   PROJECT_NAME:
     description: "Cloudflare Pages project name"
     required: true
-  ENV:
-    description: "Environment to deploy"
-    required: false
-    default: preview
   DRY_RUN:
     description: "Compile a project without actually deploying to live servers"
     required: false

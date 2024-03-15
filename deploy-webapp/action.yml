@@ -74,9 +74,3 @@ runs:
         apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
         command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }}
-
-    - name: print wrangler command output
-      shell: bash
-      env:
-        CMD_OUTPUT: ${{ steps.deploy.outputs.command-output }}
-      run: echo $CMD_OUTPUT
