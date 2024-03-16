@@ -64,7 +64,7 @@ runs:
       shell: bash
 
     - name: "Move sitemap from @exile-watch/seo to crucible"
-      run: mv node_modules/@exile-watch/seo/dist/sitemap.xml public/sitemap.xml
+      run: mv node_modules/@exile-watch/seo/sitemap.xml public/sitemap.xml
       shell: bash
 
     - name: Test
