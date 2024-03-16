@@ -59,13 +59,12 @@ runs:
         echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
       shell: bash
 
-    - name: Get latest commit hash
-      shell: bash
-      run: |
-        echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
-
     - name: Install dependencies
       run: npm ci
+      shell: bash
+
+    - name: "Move sitemap from @exile-watch/seo to crucible"
+      run: mv node_modules/@exile-watch/seo/dist/sitemap.xml public/sitemap.xml
       shell: bash
 
     - name: Test
@@ -76,10 +75,10 @@ runs:
       run: npx @cloudflare/next-on-pages
       shell: bash
 
-    - name: Build & Deploy Worker
-      id: deploy
-      uses: cloudflare/wrangler-action@v3
-      with:
-        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --branch=${{ inputs.prRef }} --commit-hash=${{ env.sha_short }}
+#    - name: Build & Deploy Worker
+#      id: deploy
+#      uses: cloudflare/wrangler-action@v3
+#      with:
+#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+#        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --branch=${{ inputs.prRef }}
