@@ -64,7 +64,7 @@ runs:
       shell: bash
 
     - name: List contents of @exile-watch/seo dist
-      run: ls -la node_modules/@exile-watch/seo
+      run: ls -la node_modules/@exile-watch
       shell: bash
 
     - name: "Move sitemap from @exile-watch/seo to crucible"
