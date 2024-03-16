@@ -63,10 +63,6 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: List contents of @exile-watch/seo dist
-      run: ls -la node_modules/@exile-watch
-      shell: bash
-
     - name: "Move sitemap from @exile-watch/seo to crucible"
       run: mv node_modules/@exile-watch/seo/sitemap.xml public/sitemap.xml
       shell: bash
@@ -79,10 +75,10 @@ runs:
       run: npx @cloudflare/next-on-pages
       shell: bash
 
-#    - name: Build & Deploy Worker
-#      id: deploy
-#      uses: cloudflare/wrangler-action@v3
-#      with:
-#        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
-#        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
-#        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --branch=${{ inputs.prRef }}
+    - name: Build & Deploy Worker
+      id: deploy
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+        command: pages deploy ".vercel/output/static" --project-name=${{ inputs.PROJECT_NAME }} --env=${{ inputs.ENV }} --branch=${{ inputs.prRef }}
