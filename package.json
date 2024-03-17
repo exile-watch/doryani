@@ -1,0 +1,20 @@
+{
+  "name": "doryani",
+  "private": true,
+  "description": "exile.watch automation",
+  "author": "Sebastian Krzyzanowski",
+  "license": "ISC",
+  "homepage": "https://github.com/exile-watch/doryani#readme",
+  "scripts": {
+    "postinstall": "npx lefthook install",
+    "lint": "npx @biomejs/biome check .",
+    "lint:apply": "npx @biomejs/biome check --apply .",
+    "format": "npx @biomejs/biome format --write .",
+    "typecheck": "exit 0"
+  },
+  "devDependencies": {
+    "@exile-watch/biome-config": "^0.3.2",
+    "@exile-watch/lefthook-config": "^0.5.3",
+    "@exile-watch/typescript-config": "^0.3.1"
+  }
+}
