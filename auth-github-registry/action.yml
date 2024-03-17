@@ -1,0 +1,30 @@
+name: Authenticate to GitHub Package Registry
+description: Action designed to automate the authentication process with GitHub Package Registry
+
+inputs:
+  GH_TOKEN:
+    description: "A GitHub PAT"
+    required: true
+  GH_ACTOR:
+    description: "A GitHub actor"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "${{ inputs.GH_ACTOR }}"
+        git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
+      shell: bash
+
+    - name: GitHub Package Registry Identity
+      env:
+        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+      run: |
+        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
+        echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
+      shell: bash
