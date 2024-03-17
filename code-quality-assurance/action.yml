@@ -8,10 +8,6 @@ inputs:
   GH_ACTOR:
     description: "A GitHub actor"
     required: true
-  prRef:
-    description: Pull request reference, e.g. `github.event.pull_request.head.ref`
-    required: false
-    default: main
 
 runs:
   using: composite
