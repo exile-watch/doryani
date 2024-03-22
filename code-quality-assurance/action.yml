@@ -41,12 +41,12 @@ runs:
       run: npm run ci:typecheck
       shell: bash
 
-    - id: CI-03
+    - id: CI-04
       name: Run tests
       run: npm run test
       shell: bash
 
-    - id: CI-04
+    - id: CI-05
       name: Run build
       run: npm run build
       shell: bash
