@@ -32,8 +32,13 @@ runs:
       shell: bash
 
     - id: CI-02
-      name: Run code quality script (format + lint + typecheck)
-      run: npm run cq
+      name: Run code quality script (format + lint)
+      run: npm run ci:lint
+      shell: bash
+
+    - id: CI-03
+      name: Run type check
+      run: npm run ci:typecheck
       shell: bash
 
     - id: CI-03
