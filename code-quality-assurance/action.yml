@@ -12,46 +12,29 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-      with:
-        token: ${{ inputs.GH_TOKEN }}
-        fetch-depth: 0 # Fetch-depth 0 necessary to get full commit history for checking changes
-
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-
     - id: CI-00
-      name: Authenticate to GitHub Registry
-      uses: exile-watch/doryani/auth-github-registry@main
+      name: Install NPM dependencies
+      uses: exile-watch/doryani/install-npm-dependencies@main
       with:
-        GH_ACTOR: ${{ inputs.GH_ACTOR }}
+        GH_ACTOR: ${{ inputs.actor }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - id: CI-01
-      name: Install dependencies
-      run: npm ci
-      shell: bash
-      env:
-        CI: "true"
-
-    - id: CI-02
       name: Run code quality script (format + lint)
       run: npm run ci:lint
       shell: bash
 
-    - id: CI-03
+    - id: CI-02
       name: Run type check
       run: npm run ci:typecheck
       shell: bash
 
-    - id: CI-04
+    - id: CI-03
       name: Run tests
       run: npm run test
       shell: bash
 
-    - id: CI-05
+    - id: CI-04
       name: Run build
       run: npm run build
       shell: bash
