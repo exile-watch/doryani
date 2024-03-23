@@ -33,6 +33,8 @@ runs:
       name: Install dependencies
       run: npm ci
       shell: bash
+      env:
+        CI: "true"
 
     - id: CI-02
       name: Run code quality script (format + lint)
