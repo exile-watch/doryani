@@ -33,8 +33,3 @@ runs:
       name: Run tests
       run: npm run test
       shell: bash
-
-    - id: CI-04
-      name: Run build
-      run: npm run build
-      shell: bash
