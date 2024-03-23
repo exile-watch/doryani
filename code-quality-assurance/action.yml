@@ -26,8 +26,8 @@ runs:
       name: Authenticate to GitHub Registry
       uses: exile-watch/doryani/auth-github-registry@main
       with:
-        GH_ACTOR: ${{ github.actor }}
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - id: CI-01
       name: Install dependencies
