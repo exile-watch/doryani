@@ -15,38 +15,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
+    - name: Install NPM dependencies
+      uses: exile-watch/doryani/install-npm-dependencies@main
       with:
-        token: ${{ inputs.GH_TOKEN }}
-        fetch-depth: 0
-        ref: ${{ inputs.prRef }}
-
-    - uses: actions/setup-node@v4
-      with:
-        node-version-file: .nvmrc
-        cache: npm
-
-    - name: Configure Git
-      run: |
-        git config --global user.name "${{ inputs.GH_ACTOR }}"
-        git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
-      shell: bash
-
-    - name: GitHub Package Registry Identity
-      env:
-        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-      run: |
-        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
-        echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
-      shell: bash
-
-    - name: Install dependencies
-      run: npm ci
-      shell: bash
-
-    - name: Build
-      run: npm run build
-      shell: bash
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - name: Lerna publish pre-release
       id: publish-prerelease

@@ -38,30 +38,11 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-
-    - uses: actions/setup-node@v4
+    - name: Install NPM dependencies
+      uses: exile-watch/doryani/install-npm-dependencies@main
       with:
-        node-version: 20
-
-    - name: Configure Git
-      run: |
-        git config --global user.name "${{ inputs.GH_ACTOR }}"
-        git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
-      shell: bash
-
-    - name: GitHub Package Registry Identity
-      env:
-        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-      run: |
-        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
-        echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
-      shell: bash
-
-    - name: Install dependencies
-      run: npm ci
-      shell: bash
+        GH_ACTOR: ${{ github.actor }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: "Move sitemap from @exile-watch/seo to crucible"
       run: mv node_modules/@exile-watch/seo/sitemap.xml public/sitemap.xml
