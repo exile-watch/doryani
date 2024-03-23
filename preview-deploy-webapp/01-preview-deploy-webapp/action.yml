@@ -37,7 +37,7 @@ runs:
         PROJECT_NAME: "crucible"
         ENV: "staging"
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
-        GH_ACTOR: ${{ inputs.actor }}
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
         DRY_RUN: ${{ inputs.DRY_RUN }}
         prRef: ${{ inputs.prRef }}
 

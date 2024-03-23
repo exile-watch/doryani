@@ -14,7 +14,7 @@ runs:
   steps:
     - uses: exile-watch/doryani/auth-github-registry@main
       with:
-        GH_ACTOR: ${{ inputs.actor }}
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - uses: actions/setup-node@v4

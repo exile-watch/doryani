@@ -16,7 +16,7 @@ runs:
       name: Install NPM dependencies
       uses: exile-watch/doryani/install-npm-dependencies@main
       with:
-        GH_ACTOR: ${{ inputs.actor }}
+        GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - id: CI-01
