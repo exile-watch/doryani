@@ -1,0 +1,29 @@
+name: Publish package
+description: Action designed to automate the process of publishing a Lerna package to a github npm registry
+
+inputs:
+  GH_TOKEN:
+    description: "A GitHub PAT"
+    required: true
+  NPM_TOKEN:
+    description: "An NPM token"
+    required: true
+  GH_ACTOR:
+    description: "A GitHub actor"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: exile-watch/doryani/install-npm-dependencies@main
+      with:
+        GH_ACTOR: ${{ inputs.actor }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+
+    - name: Lerna publish
+      env:
+        CI: "true"
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
+      run: lerna publish --yes
+      shell: bash
