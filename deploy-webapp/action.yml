@@ -42,7 +42,7 @@ runs:
       uses: exile-watch/doryani/install-npm-dependencies@main
       with:
         GH_ACTOR: ${{ github.actor }}
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - name: "Move sitemap from @exile-watch/seo to crucible"
       run: mv node_modules/@exile-watch/seo/sitemap.xml public/sitemap.xml
