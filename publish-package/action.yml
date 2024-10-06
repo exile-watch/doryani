@@ -20,12 +20,6 @@ runs:
         GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
-    - name: Fetch and pull latest changes
-      shell: bash
-      run: |
-        git fetch origin
-        git pull origin main
-
     - name: Build
       shell: bash
       run: npm run build
