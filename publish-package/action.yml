@@ -24,10 +24,11 @@ runs:
       shell: bash
       run: npm run build
 
-    - name: Lerna publish
+    - name: Create Release Pull Request or Publish to npm
+      id: changesets
+      uses: changesets/action@v1
+      with:
+        publish: npx changeset publish
       env:
-        CI: "true"
-        GH_TOKEN: ${{ inputs.GH_TOKEN }}
-        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
-      run: lerna publish --yes
-      shell: bash
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
