@@ -24,18 +24,10 @@ runs:
       shell: bash
       run: npm run build
 
-    - name: Lerna version
-      env:
-        CI: "true"
-        GH_TOKEN: ${{ inputs.GH_TOKEN }}
-        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
-      run: lerna version
-      shell: bash
-
     - name: Lerna publish
       env:
         CI: "true"
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
-      run: lerna publish from-git --yes
+      run: lerna publish --yes
       shell: bash
