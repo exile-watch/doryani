@@ -26,7 +26,7 @@ runs:
 
     - name: Publish with Lerna
       shell: bash
-      run: npx lerna publish from-package --yes --force-git-tag --force-publish
+      run: npx lerna publish from-package --yes --force-git-tag --force-publish --conventional-commits --create-release github
       env:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
         NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
