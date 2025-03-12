@@ -46,3 +46,9 @@ runs:
       shell: bash
       env:
         CI: "true"
+
+    - name: Install Changesets CLI
+      run: npm i --legacy-peer-deps --global @changesets/cli
+      shell: bash
+      env:
+        CI: "true"
