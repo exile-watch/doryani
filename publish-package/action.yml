@@ -20,6 +20,11 @@ runs:
         GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
-    - name: Build
-      shell: bash
-      run: npm run publish-packages
+#    - name: Build
+#      shell: bash
+#      run: npm run build
+
+    - name: Create Release Pull Request or Publish
+      uses: changesets/action@v1
+      with:
+        publish: npm run publish-packages
