@@ -24,6 +24,10 @@ runs:
 #      shell: bash
 #      run: npm run build
 
+    - name: Generate Changesets
+      run: npx changeset-conventional-commits
+      shell: bash
+
     - name: Create Release Pull Request or Publish
       uses: changesets/action@v1
       with:
