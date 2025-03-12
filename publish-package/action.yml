@@ -28,3 +28,6 @@ runs:
       uses: changesets/action@v1
       with:
         publish: npm run publish-packages
+      env:
+        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
