@@ -48,7 +48,7 @@ runs:
         CI: "true"
 
     - name: Install turbo
-      run: npm install turbo
+      run: npm install turbo -g
       shell: bash
       env:
         CI: "true"
