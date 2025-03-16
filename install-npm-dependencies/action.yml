@@ -54,7 +54,7 @@ runs:
         CI: "true"
 
     - name: Install vite
-      run: npm install @exile-watch/vite-config -g
+      run: npm install vite -g
       shell: bash
       env:
         CI: "true"
