@@ -49,14 +49,9 @@ runs:
 #        fetch-depth: 0
 #        ref: changeset-release/main
 
-    - name: Generate Changesets
-      run: npx changeset-conventional-commits
+    - name: Publish package
       shell: bash
-
-    - name: Create Release Pull Request or Publish
-      uses: changesets/action@v1
-      with:
-        publish: npm run publish-packages
       env:
         GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
         NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
+      run: npx auto shipit
