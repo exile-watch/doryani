@@ -52,6 +52,6 @@ runs:
     - name: Publish package
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
       run: npm run release
