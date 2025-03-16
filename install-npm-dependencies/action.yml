@@ -46,3 +46,15 @@ runs:
       shell: bash
       env:
         CI: "true"
+
+    - name: Install turbo
+      run: npm install turbo -g
+      shell: bash
+      env:
+        CI: "true"
+
+    - name: Install vite
+      run: npm install @exile-watch/vite-config
+      shell: bash
+      env:
+        CI: "true"
