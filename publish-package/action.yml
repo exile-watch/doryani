@@ -38,10 +38,10 @@ runs:
             });
             return { exists: true };
           } catch (error) {
+            console.log(error)
             if (error.status === 404) {
               return { exists: false };
             }
-            throw error;
           }
 
     - name: Create changeset branch if not exists
