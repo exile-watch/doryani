@@ -26,12 +26,12 @@ runs:
 
     - name: Check if branch exists
       id: check-branch
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         script: |
           const branch = 'changeset-release/main';
           try {
-            await github.repos.getBranch({
+            await github.rest.repos.getBranch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               branch: branch,
