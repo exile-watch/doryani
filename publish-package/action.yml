@@ -49,10 +49,11 @@ runs:
 #        fetch-depth: 0
 #        ref: changeset-release/main
 
-    - name: Publish package
-      shell: bash
+    - name: Publish to npm
+      id: changesets
+      uses: changesets/action@v1
+      with:
+        publish: yarn publish-packages
       env:
         GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-        GH_TOKEN: ${{ inputs.GH_TOKEN }}
         NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
-      run: npm run release
