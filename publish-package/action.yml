@@ -20,43 +20,9 @@ runs:
         GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
-#    - name: Build
-#      shell: bash
-#      run: npm run build
-
-#    - name: Check if branch exists
-#      id: check-branch
-#      shell: bash
-#      run: |
-#        if [[ -n $(git ls-remote --heads origin 'changeset-release/main') ]]; then
-#            echo "exists=true" >> $GITHUB_OUTPUT
-#        else
-#            echo "exists=false" >> $GITHUB_OUTPUT
-#        fi
-#
-#    - name: Create changeset branch if not exists
-#      if: steps.check-branch.outputs.exists == 'false'
-#      uses: peterjgrainger/action-create-branch@v2.2.0
-#      env:
-#        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-#      with:
-#        branch: 'changeset-release/main'
-#        sha: '${{ github.event.pull_request.head.sha }}'
-#
-#    - uses: actions/checkout@v4
-#      with:
-#        token: ${{ inputs.GH_TOKEN }}
-#        fetch-depth: 0
-#        ref: changeset-release/main
-#
-#    - name: Publish to npm
-#      id: changesets
-#      uses: changesets/action@v1
-#      with:
-#        publish: npm run publish-packages
-#      env:
-#        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-#        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
+    - name: Run build script
+      run: npm run build
+      shell: bash
 
     - uses: googleapis/release-please-action@v4
       id: release
@@ -64,8 +30,10 @@ runs:
         token: ${{ inputs.GH_TOKEN }}
         release-type: node
 
-    - run: npm publish
+    - name: Set paths_released output
+      run: echo "paths_released=${{ steps.release.outputs.paths_released }}" >> $GITHUB_OUTPUT
       shell: bash
-      env:
-        NODE_AUTH_TOKEN: ${{inputs.NPM_TOKEN}}
-      if: ${{ steps.release.outputs.release_created }}
+
+    - name: Set releases output
+      run: echo "releases=${{ toJson(steps.release.outputs) }}" >> $GITHUB_OUTPUT
+      shell: bash
