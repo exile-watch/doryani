@@ -13,8 +13,8 @@
     "typecheck": "exit 0"
   },
   "devDependencies": {
-    "@exile-watch/biome-config": "^1.1.2",
+    "@exile-watch/biome-config": "^1.1.3",
     "@exile-watch/lefthook-config": "^1.1.1",
-    "@exile-watch/typescript-config": "^1.1.0"
+    "@exile-watch/typescript-config": "^1.2.0"
   }
 }
