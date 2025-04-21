@@ -24,16 +24,9 @@ runs:
       run: npm run build
       shell: bash
 
-    - uses: googleapis/release-please-action@v4
-      id: release
-      with:
-        token: ${{ inputs.GH_TOKEN }}
-        release-type: node
-
-    - name: Set paths_released output
-      run: echo "paths_released=${{ steps.release.outputs.paths_released }}" >> $GITHUB_OUTPUT
+    - name: Publish packages
+      run: npx nx release publish
       shell: bash
-
-    - name: Set releases output
-      run: echo "releases=${{ toJson(steps.release.outputs) }}" >> $GITHUB_OUTPUT
-      shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
+        NPM_CONFIG_PROVENANCE: true
