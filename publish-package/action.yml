@@ -29,16 +29,16 @@ runs:
         --git-commit-args="--no-verify" \
         --git-push-args="--no-verify"
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
 
     - name: Changelog & commit
       run: npx nx release changelog --yes \
         --git-commit-args="--no-verify" \
         --git-push-args="--no-verify"
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
 
     - name: Publish to npm
       run: npx nx release publish --yes
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
