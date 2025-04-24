@@ -25,7 +25,7 @@ runs:
       shell: bash
 
     - name: Release packages
-      run: npx nx release --yes
+      run: npx nx release --yes --verbose
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
