@@ -25,7 +25,9 @@ runs:
       shell: bash
 
     - name: Publish packages
-      run: npx nx release --yes
+      run: npx nx release --yes \
+        --git-commit-args="--no-verify" \
+        --git-push-args="--no-verify"
       shell: bash
       env:
         LEFTHOOK_SKIP: "1"
