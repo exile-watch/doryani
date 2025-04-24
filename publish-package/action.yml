@@ -26,17 +26,13 @@ runs:
 
     - name: Version & commit
       shell: bash
-      run: npx nx release version \
-        --git-commit-args="--no-verify" \
-        --git-push-args="--no-verify"
+      run: npx nx release version
       env:
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
 
     - name: Changelog & commit
       shell: bash
-      run: npx nx release changelog \
-        --git-commit-args="--no-verify" \
-        --git-push-args="--no-verify"
+      run: npx nx release changelog
       env:
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
 
