@@ -29,9 +29,3 @@ runs:
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
-
-    - name: Publish packages
-      run: npx nx publish --yes
-      shell: bash
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
