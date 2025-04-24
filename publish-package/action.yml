@@ -30,6 +30,5 @@ runs:
         --git-push-args="--no-verify"
       shell: bash
       env:
-        LEFTHOOK_SKIP: "1"
         NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
         NPM_CONFIG_PROVENANCE: true
