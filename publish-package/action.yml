@@ -26,7 +26,7 @@ runs:
 
     - name: Version & commit
       shell: bash
-      run: npx nx release version --yes \
+      run: npx nx release version \
         --git-commit-args="--no-verify" \
         --git-push-args="--no-verify"
       env:
@@ -34,7 +34,7 @@ runs:
 
     - name: Changelog & commit
       shell: bash
-      run: npx nx release changelog --yes \
+      run: npx nx release changelog \
         --git-commit-args="--no-verify" \
         --git-push-args="--no-verify"
       env:
