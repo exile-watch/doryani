@@ -5,9 +5,6 @@ inputs:
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
-  GH_ACTOR:
-    description: "A GitHub actor"
-    required: true
 
 runs:
   using: composite
@@ -18,16 +15,15 @@ runs:
         token: ${{ inputs.GH_TOKEN }}
         fetch-depth: 0 # Fetch-depth 0 necessary to get full commit history for checking changes
 
+    - name: Setup GitHub Package Registry Identity
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        token: ${{ inputs.GH_TOKEN }}
+        registry-url: https://npm.pkg.github.com
+        scope: "@exile-watch"
+
     - name: Configure Git
       run: |
-        git config --global user.name "${{ inputs.GH_ACTOR }}"
-        git config --global user.email "${{ inputs.GH_ACTOR }}@users.noreply.github.com"
-      shell: bash
-
-    - name: GitHub Package Registry Identity
-      env:
-        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
-      run: |
-        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
-        echo "@exile-watch:registry=https://npm.pkg.github.com/" >> .npmrc
-      shell: bash
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"

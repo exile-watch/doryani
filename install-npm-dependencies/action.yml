@@ -12,14 +12,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: exile-watch/doryani/auth-github-registry@main
+    - name: Checkout repo
+      uses: exile-watch/doryani/auth-github-registry@main
       with:
-        GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
-
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
 
     - name: Cache node modules
       id: cache-npm
