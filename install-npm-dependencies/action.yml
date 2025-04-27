@@ -38,10 +38,12 @@ runs:
       run: npm ci --legacy-peer-deps --ignore-scripts
       shell: bash
       env:
+        NODE_AUTH_TOKEN: ${{ inputs.GH_TOKEN }}
         CI: "true"
 
     - name: Install vite
       run: npm install vite -g
       shell: bash
       env:
+        NODE_AUTH_TOKEN: ${{ inputs.GH_TOKEN }}
         CI: "true"
