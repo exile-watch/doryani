@@ -5,9 +5,6 @@ inputs:
   GH_TOKEN:
     description: "A GitHub PAT"
     required: true
-  GH_ACTOR:
-    description: "A GitHub actor"
-    required: true
 
 runs:
   using: composite
@@ -16,7 +13,6 @@ runs:
       name: Install NPM dependencies
       uses: exile-watch/doryani/install-npm-dependencies@main
       with:
-        GH_ACTOR: ${{ inputs.GH_ACTOR }}
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - id: CI-01
