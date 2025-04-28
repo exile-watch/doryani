@@ -18,7 +18,8 @@ runs:
     - id: CI-01
       name: Setup Biome CLI
       uses: biomejs/setup-biome@v2
-      token: ${{ inputs.GH_TOKEN }}
+      with:
+        token: ${{ inputs.GH_TOKEN }}
 
     - name: Run Biome
       shell: bash
