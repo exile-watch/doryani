@@ -16,9 +16,11 @@ runs:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
     - id: CI-01
-      name: Run code quality script (format + lint)
-      run: npm run ci:lint
-      shell: bash
+      name: Setup Biome CLI
+      uses: biomejs/setup-biome@v2
+
+    - name: Run Biome
+      run: biome ci
 
     - id: CI-02
       name: Run type check
