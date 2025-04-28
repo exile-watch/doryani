@@ -20,6 +20,7 @@ runs:
       uses: biomejs/setup-biome@v2
 
     - name: Run Biome
+      shell: bash
       run: biome ci
 
     - id: CI-02
