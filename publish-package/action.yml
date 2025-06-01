@@ -20,8 +20,8 @@ runs:
       run: npm run build
       shell: bash
 
-    - name: Version & commit
+    - name: Tag, publish and release
       shell: bash
-      run: npx nx release
+      run: npm run release
       env:
-        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
